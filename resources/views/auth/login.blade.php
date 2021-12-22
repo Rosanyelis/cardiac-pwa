@@ -1,56 +1,101 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+<!DOCTYPE html>
+<html lang="en">
 
-        <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <title>..: : : : : : : : : : Cardiac : : : : : : : : : :...</title>
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="{{ asset('dist/modules/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('dist/modules/fontawesome/css/all.min.css') }}">
 
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="{{ asset('dist/modules/bootstrap-social/bootstrap-social.css') }}">
 
-            <!-- Email Address -->
-            <div>
-                <x-label for="email" :value="__('Email')" />
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('dist/css/components.css') }}">
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+</head>
+
+<body style="background-image: url('{{ asset('dist/img/login-bg.jpg') }}'); background-size: cover;">
+    <div id="app">
+        <section class="section">
+            <div class="container">
+                <div class="row">
+                    <div
+                        class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
+                        <div class="login-brand">
+                            <img src="{{ asset('dist/img/cardiac.svg') }}" alt="logo" width="100"
+                                class="">
+                        </div>
+
+                        <div class="card card-primary">
+                            <div class="card-body">
+                                <form method="POST" action="{{ url('/logueo') }}" class="needs-validation"
+                                    novalidate="">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input id="email" type="email" class="form-control @if ($errors->has('email')) is-invalid @endif"
+                                            name="email" value="{{ old('email') }}" tabindex="1" autofocus>
+                                        @if ($errors->has('email'))
+                                            <div class="invalid-feedback">
+                                                {{ $errors->first('email') }}
+                                            </div>
+                                        @endif
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="d-block">
+                                            <label for="password" class="control-label">Password</label>
+                                        </div>
+                                        <input id="password" type="password"
+                                            class="form-control @if ($errors->has('password')) is-invalid @endif" name="password" tabindex="2">
+                                        @if ($errors->has('password'))
+                                            <div class="invalid-feedback">
+                                                {{ $errors->first('password') }}
+                                            </div>
+                                        @endif
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" name="remember" class="custom-control-input"
+                                                tabindex="3" id="remember-me">
+                                            <label class="custom-control-label" for="remember-me">Recuerdame</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                                            INICIAR SESIÓN
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="simple-footer">
+                            Copyright ©
+                            <script>
+                                document.write(new Date().getFullYear())
+                            </script>. Todos los derechos reservados
+                        </div>
+                    </div>
+                </div>
             </div>
+        </section>
+    </div>
 
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
+    <!-- General JS Scripts -->
+    <script src="{{ asset('dist/modules/jquery.min.js') }}"></script>
+    <script src="{{ asset('dist/modules/popper.js') }}"></script>
+    <script src="{{ asset('dist/modules/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('dist/modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
+    <script src="{{ asset('dist/modules/moment.min.js') }}"></script>
 
-                <x-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="current-password" />
-            </div>
 
-            <!-- Remember Me -->
-            <div class="block mt-4">
-                <label for="remember_me" class="inline-flex items-center">
-                    <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember">
-                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                </label>
-            </div>
+</body>
 
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
-
-                <x-button class="ml-3">
-                    {{ __('Log in') }}
-                </x-button>
-            </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
+</html>

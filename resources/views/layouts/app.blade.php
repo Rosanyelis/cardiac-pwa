@@ -1,36 +1,258 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<html lang="en">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>..: : : : : : : : : : Cardiac : : : : : : : : : :...</title>
 
-        <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="{{ asset('dist/modules/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('dist/modules/fontawesome/css/all.min.css') }}">
 
-        <!-- Styles -->
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <!-- CSS Libraries -->
 
-        <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
-    </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('dist/css/components.css') }}">
 
-            <!-- Page Heading -->
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
+</head>
+
+<body class="layout-3">
+    <div id="app">
+        <div class="main-wrapper container">
+            <div class="navbar-bg"></div>
+            <nav class="navbar navbar-expand-lg main-navbar">
+                <a href="{{ url('/dashboard') }}" class="navbar-brand sidebar-gone-hide">Stisla</a>
+                <a href="#" class="nav-link sidebar-gone-show" data-toggle="sidebar"><i class="fas fa-bars"></i></a>
+                <div class="nav-collapse">
+                    <a class="sidebar-gone-show nav-collapse-toggle nav-link" href="#">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </a>
                 </div>
-            </header>
+                <ul class="navbar-nav navbar-right ml-auto">
+                    <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
+                            class="nav-link nav-link-lg message-toggle beep"><i class="far fa-envelope"></i></a>
+                        <div class="dropdown-menu dropdown-list dropdown-menu-right">
+                            <div class="dropdown-header">Messages
+                                <div class="float-right">
+                                    <a href="#">Mark All As Read</a>
+                                </div>
+                            </div>
+                            <div class="dropdown-list-content dropdown-list-message">
+                                <a href="#" class="dropdown-item dropdown-item-unread">
+                                    <div class="dropdown-item-avatar">
+                                        <img alt="image" src="dist/img/avatar/avatar-1.png" class="rounded-circle">
+                                        <div class="is-online"></div>
+                                    </div>
+                                    <div class="dropdown-item-desc">
+                                        <b>Kusnaedi</b>
+                                        <p>Hello, Bro!</p>
+                                        <div class="time">10 Hours Ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="dropdown-item dropdown-item-unread">
+                                    <div class="dropdown-item-avatar">
+                                        <img alt="image" src="assets/img/avatar/avatar-2.png" class="rounded-circle">
+                                    </div>
+                                    <div class="dropdown-item-desc">
+                                        <b>Dedik Sugiharto</b>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                                        <div class="time">12 Hours Ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="dropdown-item dropdown-item-unread">
+                                    <div class="dropdown-item-avatar">
+                                        <img alt="image" src="assets/img/avatar/avatar-3.png" class="rounded-circle">
+                                        <div class="is-online"></div>
+                                    </div>
+                                    <div class="dropdown-item-desc">
+                                        <b>Agung Ardiansyah</b>
+                                        <p>Sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                        <div class="time">12 Hours Ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <div class="dropdown-item-avatar">
+                                        <img alt="image" src="assets/img/avatar/avatar-4.png" class="rounded-circle">
+                                    </div>
+                                    <div class="dropdown-item-desc">
+                                        <b>Ardian Rahardiansyah</b>
+                                        <p>Duis aute irure dolor in reprehenderit in voluptate velit ess</p>
+                                        <div class="time">16 Hours Ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <div class="dropdown-item-avatar">
+                                        <img alt="image" src="assets/img/avatar/avatar-5.png" class="rounded-circle">
+                                    </div>
+                                    <div class="dropdown-item-desc">
+                                        <b>Alfa Zulkarnain</b>
+                                        <p>Exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
+                                        <div class="time">Yesterday</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="dropdown-footer text-center">
+                                <a href="#">View All <i class="fas fa-chevron-right"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
+                            class="nav-link notification-toggle nav-link-lg beep"><i class="far fa-bell"></i></a>
+                        <div class="dropdown-menu dropdown-list dropdown-menu-right">
+                            <div class="dropdown-header">Notifications
+                                <div class="float-right">
+                                    <a href="#">Mark All As Read</a>
+                                </div>
+                            </div>
+                            <div class="dropdown-list-content dropdown-list-icons">
+                                <a href="#" class="dropdown-item dropdown-item-unread">
+                                    <div class="dropdown-item-icon bg-primary text-white">
+                                        <i class="fas fa-code"></i>
+                                    </div>
+                                    <div class="dropdown-item-desc">
+                                        Template update is available now!
+                                        <div class="time text-primary">2 Min Ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <div class="dropdown-item-icon bg-info text-white">
+                                        <i class="far fa-user"></i>
+                                    </div>
+                                    <div class="dropdown-item-desc">
+                                        <b>You</b> and <b>Dedik Sugiharto</b> are now friends
+                                        <div class="time">10 Hours Ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <div class="dropdown-item-icon bg-success text-white">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                    <div class="dropdown-item-desc">
+                                        <b>Kusnaedi</b> has moved task <b>Fix bug header</b> to <b>Done</b>
+                                        <div class="time">12 Hours Ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <div class="dropdown-item-icon bg-danger text-white">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </div>
+                                    <div class="dropdown-item-desc">
+                                        Low disk space. Let's clean it!
+                                        <div class="time">17 Hours Ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <div class="dropdown-item-icon bg-info text-white">
+                                        <i class="fas fa-bell"></i>
+                                    </div>
+                                    <div class="dropdown-item-desc">
+                                        Welcome to Stisla template!
+                                        <div class="time">Yesterday</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="dropdown-footer text-center">
+                                <a href="#">View All <i class="fas fa-chevron-right"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown"><a href="#" data-toggle="dropdown"
+                            class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                            <img alt="image" src="{{ asset('dist/img/avatar/avatar-1.png') }}"
+                                class="rounded-circle mr-1">
+                            <div class="d-sm-none d-lg-inline-block">{{ Auth::user()->name }}</div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a href="features-profile.html" class="dropdown-item has-icon">
+                                <i class="far fa-user"></i> Perfil
+                            </a>
+                            <a href="features-settings.html" class="dropdown-item has-icon">
+                                <i class="fas fa-cog"></i> Configuración
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item has-icon text-danger">
+                                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+            <nav class="navbar navbar-secondary navbar-expand-lg">
+                <div class="container">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a href="{{ url('/dashboard') }}" class="nav-link"><i
+                                    class="fas fa-fire"></i><span>Dashboard</span></a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="#" class="nav-link"><i class="far fa-heart"></i><span>Citas</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link"><i class="far fa-heart"></i><span>Pacientes</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link"><i class="far fa-heart"></i><span>Estudios</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link"><i class="far fa-heart"></i><span>Usuarios</span></a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a href="#" data-toggle="dropdown" class="nav-link has-dropdown"><i
+                                    class="far fa-clone"></i><span>Configuración</span></a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item"><a href="#" class="nav-link">Antecedentes</a></li>
+                                <li class="nav-item"><a href="#" class="nav-link">Medicamentos</a></li>
+                                <li class="nav-item"><a href="#" class="nav-link">Referidos</a></li>
+                                <li class="nav-item"><a href="#" class="nav-link">Tipos de Consultas</a></li>
+                                <li class="nav-item"><a href="#" class="nav-link">Plantillas</a></li>
+                                <li class="nav-item"><a href="#" class="nav-link">Encabezado de Página</a></li>
+                                <li class="nav-item"><a href="#" class="nav-link">Pié de Página</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <section class="section">
+                    @yield('contenido')
+                </section>
+            </div>
+            <footer class="main-footer">
+                <div class="footer-left">
+                    Copyright ©
+                    <script>
+                        document.write(new Date().getFullYear())
+                    </script>. Todos los derechos reservados
+                </div>
+                <div class="footer-right">
+
+                </div>
+            </footer>
         </div>
-    </body>
+    </div>
+
+    <!-- General JS Scripts -->
+    <script src="{{ asset('dist/modules/jquery.min.js') }}"></script>
+    <script src="{{ asset('dist/modules/popper.js') }}"></script>
+    <script src="{{ asset('dist/modules/tooltip.js') }}"></script>
+    <script src="{{ asset('dist/modules/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('dist/modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
+    <script src="{{ asset('dist/modules/moment.min.js') }}"></script>
+    <script src="{{ asset('dist/js/stisla.js') }}"></script>
+
+    <!-- JS Libraies -->
+
+    <!-- Page Specific JS File -->
+
+    <!-- Template JS File -->
+    <script src="{{ asset('dist/js/scripts.js') }}"></script>
+    <script src="{{ asset('dist/js/custom.js') }}"></script>
+</body>
+
 </html>
