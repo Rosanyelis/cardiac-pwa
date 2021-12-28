@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\AntecedenteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,4 +21,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-
+Route::group(['prefix' => '/configuracion'], function() {
+    Route::get('/antecedentes', [AntecedenteController::class, 'index'])->name('antecedentes.index');
+    Route::get('/antecedentes/nuevo-antecedente', [AntecedenteController::class, 'create'])->name('antecedentes.create');
+    Route::post('/antecedentes/guardar-antecedente', [AntecedenteController::class, 'store'])->name('antecedentes.store');
+});
