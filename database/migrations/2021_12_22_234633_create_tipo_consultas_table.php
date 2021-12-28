@@ -14,8 +14,10 @@ class CreateTipoConsultasTable extends Migration
     public function up()
     {
         Schema::create('tipo_consultas', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->string('nombre');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
