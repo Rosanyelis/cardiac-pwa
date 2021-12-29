@@ -150,7 +150,7 @@
                     @yield('contenido')
                 </section>
             </div>
-            <footer class="main-footer">
+            <footer class="main-footer ">
                 <div class="footer-left">
                     Copyright ©
                     <script>
@@ -158,7 +158,7 @@
                     </script>. Todos los derechos reservados
                 </div>
                 <div class="footer-right">
-
+                    Desarrollado por Sogtecnology y DevRossDigital
                 </div>
             </footer>
         </div>

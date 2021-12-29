@@ -2230,7 +2230,11 @@ pre {
         background-color: #6777ef;
         color: #fff; }
     .section .section-header .section-header-button {
-      margin-left: 20px; }
+      /* margin-left: 20px; */
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+    }
     .section .section-header .section-header-breadcrumb {
       margin-left: auto;
       display: flex;

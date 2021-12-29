@@ -15,9 +15,8 @@ class AntecedenteController extends Controller
      */
     public function index()
     {
-        // $data = Antecedente::all();
-        // return view('antecedentes.index', compact('data'));
-        return view('antecedentes.index');
+        $data = Antecedente::all();
+        return view('antecedentes.index', compact('data'));
     }
 
     /**
@@ -49,7 +48,7 @@ class AntecedenteController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Antecedente  $antecedente
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show(Antecedente $antecedente)
@@ -60,7 +59,7 @@ class AntecedenteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Antecedente  $antecedente
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit(Antecedente $antecedente)
@@ -72,7 +71,7 @@ class AntecedenteController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdateAntecedenteRequest  $request
-     * @param  \App\Models\Antecedente  $antecedente
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateAntecedenteRequest $request, Antecedente $antecedente)
@@ -83,11 +82,18 @@ class AntecedenteController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Antecedente  $antecedente
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Antecedente $antecedente)
+    public function destroy($id)
     {
-        //
+        $count = Antecedente::where('id', $id)->count();
+
+        if ($count>0) {
+            Antecedente::where('id', $id)->delete();
+            return redirect('/configuracion/antecedentes')->with('success', 'Registro eliminado exitosamente');
+        } else {
+            return redirect('/configuracion/antecedentes')->with('danger', 'Error al eliminar el registro');
+        }
     }
 }

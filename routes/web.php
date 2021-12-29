@@ -25,4 +25,6 @@ Route::group(['prefix' => '/configuracion'], function() {
     Route::get('/antecedentes', [AntecedenteController::class, 'index'])->name('antecedentes.index');
     Route::get('/antecedentes/nuevo-antecedente', [AntecedenteController::class, 'create'])->name('antecedentes.create');
     Route::post('/antecedentes/guardar-antecedente', [AntecedenteController::class, 'store'])->name('antecedentes.store');
+
+    Route::delete('/antecedentes/{id}/eliminar-antecedente', [AntecedenteController::class, 'destroy'])->name('antecedentes.destroy');
 });

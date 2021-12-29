@@ -14,7 +14,8 @@ class MedicamentoController extends Controller
      */
     public function index()
     {
-        //
+        $data = Medicamento::all();
+        return view('medicamentos.index', compact('data'));
     }
 
     /**
@@ -24,18 +25,24 @@ class MedicamentoController extends Controller
      */
     public function create()
     {
-        //
+        return view('medicamentos.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreMedicamentoRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreMedicamentoRequest $request)
     {
-        //
+        Medicamento::create([
+            'nombre' => $request->nombre,
+            'descripcion' => $request->descripcion,
+            'indicaciones' => $request->indicaciones,
+        ]);
+
+        return redirect('/configuracion/medicamentos')->with('success', 'Registro Guardado');
     }
 
     /**

@@ -14,7 +14,9 @@ class CreatePlantillasTable extends Migration
     public function up()
     {
         Schema::create('plantillas', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->string('nombre');
+            $table->text('texto'); 
             $table->timestamps();
         });
     }
