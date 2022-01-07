@@ -14,8 +14,23 @@ class CreateInformeMedicoMedicamentosTable extends Migration
     public function up()
     {
         Schema::create('informe_medico_medicamentos', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->uuid('informe_medico_id')->nullable();
+            $table->uuid('medicamento_id')->nullable();
+            $table->integer('cantidad');
             $table->timestamps();
+
+            $table->foreign('informe_medico_id')
+                ->references('id')
+                ->on('informe_medicos')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->foreign('medicamento_id')
+                ->references('id')
+                ->on('medicamentos')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            
         });
     }
 

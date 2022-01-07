@@ -14,7 +14,15 @@ class CreateInformeMedicosTable extends Migration
     public function up()
     {
         Schema::create('informe_medicos', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->uuid('paciente_id')->nullable();
+            $table->foreign('paciente_id')
+                ->references('id')
+                ->on('pacientes')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->date('fecha');
+            $table->text('texto');
             $table->timestamps();
         });
     }

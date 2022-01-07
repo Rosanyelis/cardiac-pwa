@@ -16,7 +16,7 @@
 </head>
 
 <body class="layout-3">
-    <div id="app">
+    <div >
         <div class="main-wrapper container-fluid">
             <div class="navbar-bg"></div>
             <nav class="navbar navbar-expand-lg main-navbar">
@@ -152,13 +152,11 @@
             </div>
             <footer class="main-footer ">
                 <div class="footer-left">
+                    Desarrollado por Sogtecnology y DevRossDigital. 
                     Copyright ©
                     <script>
                         document.write(new Date().getFullYear())
                     </script>. Todos los derechos reservados
-                </div>
-                <div class="footer-right">
-                    Desarrollado por Sogtecnology y DevRossDigital
                 </div>
             </footer>
         </div>
@@ -170,14 +168,11 @@
     <script src="{{ asset('dist/modules/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('dist/modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
     <script src="{{ asset('dist/modules/moment.min.js') }}"></script>
-    <script src="{{ asset('dist/js/stisla.js') }}"></script>
-    <script src="{{ asset('dist/modules/jquery-ui/jquery-ui.min.js') }}"></script>
-    <!-- JS Libraies -->
+    
+    
     @yield('scripts')
     <!-- Page Specific JS File -->
 
-    <!-- Template JS File -->
-    <script src="{{ asset('dist/js/scripts.js') }}"></script>
 </body>
 
 </html>

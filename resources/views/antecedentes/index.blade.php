@@ -19,15 +19,12 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <div id="table-1_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
-                            </div>
-                            <table class="table table-striped dataTable no-footer" id="table-1" role="grid"
-                                aria-describedby="table-1_info">
+                            <table class="table table-striped" id="tablet">
                                 <thead>
-                                    <tr role="row">
-                                        <th style="width: 10px;">#</th>
+                                    <tr>
+                                        <th width="10px">#</th>
                                         <th>Antecedentes</th>
-                                        <th style="width: 100px;">Acciones</th>
+                                        <th width="100px">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -36,11 +33,10 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->nombre }}</td>
                                             <td>
-                                                <button type="button" class="btn btn-icon btn-sm btn-danger"
-                                                    onclick="deletedRegistro()"><i class="fas fa-trash"></i></button>
-                                                <input type="hidden" id="url"
-                                                    value="{{ url('configuracion/antecedentes/' . $item->id . '/eliminar-antecedente') }}">
-                                                <form id="borrarRecord" method="post" action="">
+                                                <button type="button" class="deleteRow btn btn-icon btn-sm btn-danger " value="{{ url('/configuracion/antecedentes/' . $item->id . '/eliminar-antecedente') }}" >
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                                <form class="borrarRecord" method="post" action="">
                                                     @csrf
                                                     @method('DELETE')
                                                 </form>
@@ -52,26 +48,24 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
+
 @endsection
 @section('scripts')
     <script src="{{ asset('dist/modules/datatables/datatables.min.js') }}"></script>
     <script src="{{ asset('dist/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('dist/js/page/modules-datatables.js') }}"></script>
     <script src="{{ asset('dist/modules/sweetalert/sweetalert.min.js') }}"></script>
     <script src="{{ asset('dist/modules/izitoast/js/iziToast.min.js') }}"></script>
+    <script src="{{ asset('dist/js/page/modules-datatables.js') }}"></script>
     <script>
         (function($) {
-            @if (session('success'))
-                iziToast.success({
-                title: '{{ session('success') }}',
-                position: 'topRight'
-                });
-            @endif
-            deletedRegistro = function() {
-                console.log($('#url').val());
+
+            $('.deleteRow').click(function(){
+                let val = $(this).val();
+                console.log(val);
                 swal({
                         title: '¿Está seguro de eliminar éste registro?',
                         text: 'El registro eliminado no podrá ser recuperado!',
@@ -98,12 +92,21 @@
                     })
                     .then((result) => {
                         if (result == true) {
-                            var url = $('#url').val();
-                            $('#borrarRecord').attr('action', url);
-                            $('#borrarRecord').submit();
+                            $('.borrarRecord').attr('action', val);
+                            $('.borrarRecord').submit();
                         }
                     });
-            }
+            });
+                
+                // console.log($('#valorId-{{ $item->id }}').val());
+                
+            
+            @if (session('success'))
+                iziToast.success({
+                title: '{{ session('success') }}',
+                position: 'topRight'
+                });
+            @endif
         })(jQuery);
     </script>
 @endsection

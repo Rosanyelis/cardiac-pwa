@@ -14,8 +14,19 @@ class CreateHistoriaClinicasTable extends Migration
     public function up()
     {
         Schema::create('historia_clinicas', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->date('fecha');
+            $table->uuid('paciente_id')->nullable();
+            $table->text('diagnostico')->nullable();
+            $table->text('evolucion')->nullable();
+            $table->text('comentario')->nullable();
             $table->timestamps();
+
+            $table->foreign('paciente_id')
+                ->references('id')
+                ->on('pacientes')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

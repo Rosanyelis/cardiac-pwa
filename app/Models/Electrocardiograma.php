@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\UuidModel;
 
-class Paciente extends Model
+class Electrocardiograma extends Model
 {
     use HasFactory, UuidModel;
 
@@ -16,6 +16,7 @@ class Paciente extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'f_ingreso', 'cedula', 'nombres', 'f_nacimiento', 'edad', 'telefono', 'profesion', 'direccion',
+        'id', 'historia_clinica_id', 'ritmo', 'fc', 'pr', 'qrs', 'qt', 
+        'qtc', 'aqrs', 'trazo', 'rx_torax_pa', 'ecocardiograma',
     ];
 }

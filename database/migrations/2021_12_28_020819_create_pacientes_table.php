@@ -16,7 +16,6 @@ class CreatePacientesTable extends Migration
         Schema::create('pacientes', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->date('f_ingreso');
-            $table->string('n_historia', 10);
             $table->string('cedula')->nullable();
             $table->string('nombres'); // TODO: Preguntar si lo mantengo como texo o como json
             $table->date('f_nacimiento')->nullable();
@@ -24,8 +23,6 @@ class CreatePacientesTable extends Migration
             $table->string('telefono')->nullable();
             $table->string('profesion')->nullable();
             $table->string('direccion')->nullable();
-            $table->string('referido')->nullable();
-            $table->string('tipo_consulta')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

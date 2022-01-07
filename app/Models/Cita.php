@@ -16,7 +16,7 @@ class Cita extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'fecha', 'asistio','datos',
+        'id', 'fecha', 'asistio','paciente_id', 'tipo_consulta_id', 'referido_id'
     ];
 
     /**
@@ -25,7 +25,7 @@ class Cita extends Model
      * @var array
      */
     protected $casts = [
-        'datos' => 'array',
+        
     ];
 
 }
