@@ -8,6 +8,12 @@ use App\Http\Requests\Antecedentes\UpdateAntecedenteRequest;
 
 class AntecedenteController extends Controller
 {
+    public function json()
+    {
+        $results = Antecedente::all()->toArray();
+        $data =  ['data' => $results,];
+        return response()->json($data);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,8 +21,7 @@ class AntecedenteController extends Controller
      */
     public function index()
     {
-        $data = Antecedente::all();
-        return view('antecedentes.index', compact('data'));
+        return view('antecedentes.index');
     }
 
     /**
@@ -91,9 +96,9 @@ class AntecedenteController extends Controller
 
         if ($count>0) {
             Antecedente::where('id', $id)->delete();
-            return redirect('/configuracion/antecedentes')->with('success', 'Registro eliminado exitosamente');
+            return response()->json(200);
         } else {
-            return redirect('/configuracion/antecedentes')->with('danger', 'Error al eliminar el registro');
+            return response()->json();
         }
     }
 }

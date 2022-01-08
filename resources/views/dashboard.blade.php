@@ -1,32 +1,42 @@
 @extends('layouts.app')
 @section('contenido')
-<div class="section-header">
-    <h1>Dashboard</h1>
-    {{-- <div class="section-header-breadcrumb">
-        <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-        <div class="breadcrumb-item"><a href="#">Layout</a></div>
-        <div class="breadcrumb-item">Top Navigation</div>
-    </div> --}}
+<div class="content-header row">
+    <div class="content-header-left col-md-9 col-12 mb-2">
+        <div class="row breadcrumbs-top">
+            <div class="col-12">
+                <h2 class="content-header-title float-left mb-0">Home</h2>
+                <div class="breadcrumb-wrapper">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active">Index
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
+        <div class="form-group breadcrumb-right">
+            <div class="dropdown">
+                <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle" type="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+                        data-feather="grid"></i></button>
+                <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item"
+                        href="javascript:void(0);"><i class="mr-1"
+                            data-feather="check-square"></i><span class="align-middle">Todo</span></a><a
+                        class="dropdown-item" href="javascript:void(0);"><i class="mr-1"
+                            data-feather="message-square"></i><span class="align-middle">Chat</span></a><a
+                        class="dropdown-item" href="javascript:void(0);"><i class="mr-1"
+                            data-feather="mail"></i><span class="align-middle">Email</span></a><a
+                        class="dropdown-item" href="javascript:void(0);"><i class="mr-1"
+                            data-feather="calendar"></i><span class="align-middle">Calendar</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-<div class="section-body">
-    {{-- <h2 class="section-title">This is Example Page</h2>
-    <p class="section-lead">This page is just an example for you to create your own page.</p>
-    <div class="card">
-        <div class="card-header">
-            <h4>Example Card</h4>
-        </div>
-        <div class="card-body">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        </div>
-        <div class="card-footer bg-whitesmoke">
-            This is card footer
-        </div>
-    </div> --}}
+<div class="content-body">
+    <!-- Kick start -->
 </div>
 @endsection

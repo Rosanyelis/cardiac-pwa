@@ -67,7 +67,7 @@
                                         <div class="input-group input-group-merge form-password-toggle">
                                             <input type="password" name="password" class="form-control form-control-merge @if ($errors->has('password')) is-invalid @endif" id="login-password" name="login-password" tabindex="2" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="login-password" />
                                             <div class="input-group-append">
-                                                <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
+                                                <span class="input-group-text cursor-pointer"><i class="ficon" data-feather="eye"></i></span>
                                             </div>
                                             @if ($errors->has('password'))
                                         <div class="invalid-feedback">

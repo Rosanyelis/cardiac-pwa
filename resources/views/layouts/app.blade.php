@@ -1,175 +1,264 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>..::  Cardiac  ::..</title>
-    <!-- General CSS Files -->
-    <link rel="stylesheet" href="{{ asset('dist/modules/bootstrap/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('dist/modules/fontawesome/css/all.min.css') }}">
+    <title>..:: Cardiac ::..</title>
+
+    <link rel="apple-touch-icon" href="{{ asset('app-assets/images/ico/apple-icon-120.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('app-assets/images/ico/favicon.ico') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600"
+        rel="stylesheet">
+
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/vendors.min.css') }}">
+    <!-- END: Vendor CSS-->
+
+    <!-- BEGIN: Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/bootstrap-extended.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/colors.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/components.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/themes/dark-layout.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/themes/bordered-layout.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/themes/semi-dark-layout.css') }}">
+
+    <!-- BEGIN: Page CSS-->
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('app-assets/css/core/menu/menu-types/horizontal-menu.css') }}">
+
     <!-- CSS Libraries -->
     @yield('styles')
-    <!-- Template CSS -->
-    <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('dist/css/components.css') }}">
+
 </head>
 
-<body class="layout-3">
-    <div >
-        <div class="main-wrapper container-fluid">
-            <div class="navbar-bg"></div>
-            <nav class="navbar navbar-expand-lg main-navbar">
-                <a href="{{ url('/dashboard') }}" class="navbar-brand sidebar-gone-hide"><i class="fas fa-heartbeat" style="font-size: 1.2rem;"></i></span> Cardiac</a>
-                <a href="#" class="nav-link sidebar-gone-show" data-toggle="sidebar"><i class="fas fa-bars"></i></a>
-                <div class="nav-collapse">
-                    <a class="sidebar-gone-show nav-collapse-toggle nav-link" href="#">
-                        <i class="fas fa-ellipsis-v"></i>
+<!-- BEGIN: Body-->
+
+<body class="horizontal-layout horizontal-menu  navbar-floating footer-static  " data-open="hover"
+    data-menu="horizontal-menu" data-col="">
+
+    <!-- BEGIN: Header-->
+    <nav class="header-navbar navbar-expand-lg navbar navbar-fixed align-items-center navbar-shadow navbar-brand-center"
+        data-nav="brand-center">
+        <div class="navbar-header d-xl-block d-none">
+            <ul class="nav navbar-nav">
+                <li class="nav-item">
+                    <a class="navbar-brand" href="{{ url('/dashboard') }}">
+                        <span class="brand-logo">
+                            <img src="{{ asset('app-assets/images/cardiac.svg') }}" alt="logo" width="80">
+                        </span>
                     </a>
-                </div>
-                <ul class="navbar-nav navbar-right ml-auto">
-                    <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
-                            class="nav-link notification-toggle nav-link-lg beep"><i class="far fa-bell"></i></a>
-                        <div class="dropdown-menu dropdown-list dropdown-menu-right">
-                            <div class="dropdown-header">Notifications
-                                <div class="float-right">
-                                    <a href="#">Mark All As Read</a>
-                                </div>
-                            </div>
-                            <div class="dropdown-list-content dropdown-list-icons">
-                                <a href="#" class="dropdown-item dropdown-item-unread">
-                                    <div class="dropdown-item-icon bg-primary text-white">
-                                        <i class="fas fa-code"></i>
-                                    </div>
-                                    <div class="dropdown-item-desc">
-                                        Template update is available now!
-                                        <div class="time text-primary">2 Min Ago</div>
-                                    </div>
-                                </a>
-                                <a href="#" class="dropdown-item">
-                                    <div class="dropdown-item-icon bg-info text-white">
-                                        <i class="far fa-user"></i>
-                                    </div>
-                                    <div class="dropdown-item-desc">
-                                        <b>You</b> and <b>Dedik Sugiharto</b> are now friends
-                                        <div class="time">10 Hours Ago</div>
-                                    </div>
-                                </a>
-                                <a href="#" class="dropdown-item">
-                                    <div class="dropdown-item-icon bg-success text-white">
-                                        <i class="fas fa-check"></i>
-                                    </div>
-                                    <div class="dropdown-item-desc">
-                                        <b>Kusnaedi</b> has moved task <b>Fix bug header</b> to <b>Done</b>
-                                        <div class="time">12 Hours Ago</div>
-                                    </div>
-                                </a>
-                                <a href="#" class="dropdown-item">
-                                    <div class="dropdown-item-icon bg-danger text-white">
-                                        <i class="fas fa-exclamation-triangle"></i>
-                                    </div>
-                                    <div class="dropdown-item-desc">
-                                        Low disk space. Let's clean it!
-                                        <div class="time">17 Hours Ago</div>
-                                    </div>
-                                </a>
-                                <a href="#" class="dropdown-item">
-                                    <div class="dropdown-item-icon bg-info text-white">
-                                        <i class="fas fa-bell"></i>
-                                    </div>
-                                    <div class="dropdown-item-desc">
-                                        Welcome to Stisla template!
-                                        <div class="time">Yesterday</div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="dropdown-footer text-center">
-                                <a href="#">View All <i class="fas fa-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="dropdown"><a href="#" data-toggle="dropdown"
-                            class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                            <img alt="image" src="{{ asset('dist/img/avatar/avatar-1.png') }}"
-                                class="rounded-circle mr-1">
-                            <div class="d-sm-none d-lg-inline-block">{{ Auth::user()->name }}</div>
+                </li>
+            </ul>
+        </div>
+        <div class="navbar-container d-flex content">
+            <div class="bookmark-wrapper d-flex align-items-center">
+                <ul class="nav navbar-nav d-xl-none">
+                    <li class="nav-item">
+                        <a class="nav-link menu-toggle" href="javascript:void(0);">
+                            <i class="ficon" data-feather="menu"></i>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a href="features-profile.html" class="dropdown-item has-icon">
-                                <i class="far fa-user"></i> Perfil
-                            </a>
-                            <a href="features-settings.html" class="dropdown-item has-icon">
-                                <i class="fas fa-cog"></i> Configuración
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item has-icon text-danger">
-                                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-                            </a>
-                        </div>
                     </li>
                 </ul>
-            </nav>
-
-            <nav class="navbar navbar-secondary navbar-expand-lg">
-                <div class="container">
-                    <ul class="navbar-nav">
-                        <li class="nav-item active">
-                            <a href="{{ url('/dashboard') }}" class="nav-link"><i class="fas fa-home"></i><span>Dashboard</span></a>
-                        </li>
-                        <li class="nav-item ">
-                            <a href="#" class="nav-link"><i class="fas fa-calendar-alt"></i><span>Citas</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link"><i class="fas fa-id-card-alt"></i><span>Pacientes</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link"><i class="fas fa-file-medical"></i><span>Estudios</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link"><i class="fas fa-users"></i><span>Usuarios</span></a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a href="#" data-toggle="dropdown" class="nav-link has-dropdown"><i class="fas fa-cogs"></i><span>Configuración</span></a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-item"><a href="{{ url('/configuracion/antecedentes') }}" class="nav-link">Antecedentes</a></li>
-                                <li class="nav-item"><a href="#" class="nav-link">Medicamentos</a></li>
-                                <li class="nav-item"><a href="#" class="nav-link">Referidos</a></li>
-                                <li class="nav-item"><a href="#" class="nav-link">Tipos de Consultas</a></li>
-                                <li class="nav-item"><a href="#" class="nav-link">Plantillas</a></li>
-                                <li class="nav-item"><a href="#" class="nav-link">Encabezado de Página</a></li>
-                                <li class="nav-item"><a href="#" class="nav-link">Pié de Página</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-
-            <!-- Main Content -->
-            <div class="main-content">
-                <section class="section">
-                    @yield('contenido')
-                </section>
+                <ul class="nav navbar-nav">
+                    <li class="nav-item d-none d-lg-block">
+                        <a class="nav-link nav-link-style">
+                            <i class="ficon" data-feather="moon"></i>
+                        </a>
+                    </li>
+                </ul>
             </div>
-            <footer class="main-footer ">
-                <div class="footer-left">
-                    Desarrollado por Sogtecnology y DevRossDigital. 
-                    Copyright ©
-                    <script>
-                        document.write(new Date().getFullYear())
-                    </script>. Todos los derechos reservados
-                </div>
-            </footer>
+            <ul class="nav navbar-nav align-items-center ml-auto">
+                <li class="nav-item dropdown dropdown-user">
+                    <a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="javascript:void(0);"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div class="user-nav d-sm-flex d-none">
+                            <span class="user-name font-weight-bolder">{{ Auth::user()->name }}</span>
+                            <span class="user-status">{{ Auth::user()->rol }}</span>
+                        </div>
+                        <span class="avatar">
+                            <img class="round" src="../../../app-assets//images/portrait/small/avatar-s-11.jpg"
+                                alt="avatar" height="40" width="40">
+                            <span class="avatar-status-online"></span>
+                        </span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user">
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button class="dropdown-item" onclick="event.preventDefault();
+                            this.closest('form').submit();">
+                                <i class="mr-50" data-feather="power"></i> Cerrar Sesión
+                            </button>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- END: Header-->
+
+    <!-- BEGIN: Main Menu-->
+    <div class="horizontal-menu-wrapper">
+        <div class="header-navbar navbar-expand-sm navbar navbar-horizontal floating-nav navbar-light navbar-shadow menu-border"
+            role="navigation" data-menu="menu-wrapper" data-menu-type="floating-nav">
+            <div class="navbar-header">
+                <ul class="nav navbar-nav flex-row">
+                    <li class="nav-item mr-auto">
+                        <a class="navbar-brand" href="{{ url('/dashboard') }}">
+                            <span class="brand-logo">
+                                <img src="{{ asset('app-assets/images/cardiac.svg') }}" alt="logo" width="80">
+                            </span>
+                            <h2 class="brand-text mb-0">Cardiac</h2>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-toggle">
+                        <a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse">
+                            <i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="shadow-bottom"></div>
+            <!-- Horizontal menu content-->
+            <div class="navbar-container main-menu-content" data-menu="menu-container">
+                <!-- include ../../../includes/mixins-->
+                <ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation">
+                    <li class="nav-item active">
+                        <a class="nav-link d-flex align-items-center" href="{{ url('/dashboard') }}">
+                            <i data-feather="home"></i>
+                            <span data-i18n="Dashboard">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link d-flex align-items-center" href="">
+                            <i data-feather='calendar'></i>
+                            <span data-i18n="Citas">Citas</span>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link d-flex align-items-center" href="">
+                            <i data-feather='users'></i>
+                            <span data-i18n="Pacientes">Pacientes</span>
+                        </a>
+                    </li>
+                    <li class="dropdown nav-item" data-menu="dropdown">
+                        <a class="dropdown-toggle nav-link d-flex align-items-center" href="#" data-toggle="dropdown">
+                            <i data-feather='settings'></i>
+                            <span data-i18n="Configuración">Configuración</span></a>
+                        <ul class="dropdown-menu">
+                            <li data-menu="">
+                                <a class="dropdown-item d-flex align-items-center" href="{{ url('/configuracion/antecedentes') }}"
+                                    data-toggle="dropdown" data-i18n="Antecedentes">
+                                    <span data-i18n="Antecedentes">Antecedentes</span>
+                                </a>
+                            </li>
+                            <li data-menu="">
+                                <a class="dropdown-item d-flex align-items-center" href="layout-boxed.html"
+                                    data-toggle="dropdown" data-i18n="Medicamentos">
+                                    <span data-i18n="Medicamentos">Medicamentos</span>
+                                </a>
+                            </li>
+                            <li data-menu="">
+                                <a class="dropdown-item d-flex align-items-center" href="layout-boxed.html"
+                                    data-toggle="dropdown" data-i18n="Referidos">
+                                    <span data-i18n="Referidos">Referidos</span>
+                                </a>
+                            </li>
+                            <li data-menu="">
+                                <a class="dropdown-item d-flex align-items-center" href="layout-boxed.html"
+                                    data-toggle="dropdown" data-i18n="Tipos de Consultas">
+                                    <span data-i18n="Tipos de Consultas">Tipos de Consultas</span>
+                                </a>
+                            </li>
+                            <li data-menu="">
+                                <a class="dropdown-item d-flex align-items-center" href="layout-boxed.html"
+                                    data-toggle="dropdown" data-i18n="Plantillas">
+                                    <span data-i18n="Plantillas">Plantillas</span>
+                                </a>
+                            </li>
+                            <li data-menu="">
+                                <a class="dropdown-item d-flex align-items-center" href="layout-boxed.html"
+                                    data-toggle="dropdown" data-i18n="Encabezado de Página">
+                                    <span data-i18n="Encabezado de Página">Encabezado de Página</span>
+                                </a>
+                            </li>
+                            <li data-menu="">
+                                <a class="dropdown-item d-flex align-items-center" href="layout-boxed.html"
+                                    data-toggle="dropdown" data-i18n="Pié de Página">
+                                    <span data-i18n="Pié de Página">Pié de Página</span>
+                                </a>
+                            </li>
+                            <li data-menu="">
+                                <a class="dropdown-item d-flex align-items-center" href="layout-boxed.html"
+                                    data-toggle="dropdown" data-i18n="Usuarios">
+                                    <span data-i18n="Usuarios">Usuarios</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
+    <!-- END: Main Menu-->
 
-    <!-- General JS Scripts -->
-    <script src="{{ asset('dist/modules/jquery.min.js') }}"></script>
-    <script src="{{ asset('dist/modules/popper.js') }}"></script>
-    <script src="{{ asset('dist/modules/bootstrap/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('dist/modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
-    <script src="{{ asset('dist/modules/moment.min.js') }}"></script>
-    
-    
+    <!-- BEGIN: Content-->
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            @yield('contenido')
+        </div>
+    </div>
+    <!-- END: Content-->
+
+    <div class="sidenav-overlay"></div>
+    <div class="drag-target"></div>
+
+    <!-- BEGIN: Footer-->
+    <footer class="footer footer-static footer-light">
+        <p class="clearfix mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">
+                Copyright ©
+                <script>
+                    document.write(new Date().getFullYear())
+                </script>. Todos los derechos reservados
+            </span><span class="float-md-right d-none d-md-block">Desarrollado por Sogtecnology y
+                DevRossDigital.</span></p>
+    </footer>
+    <button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button>
+    <!-- END: Footer-->
+
+
+    <!-- BEGIN: Vendor JS-->
+    <script src="{{ asset('app-assets/vendors/js/vendors.min.js') }}"></script>
+    <!-- BEGIN Vendor JS-->
+
+    <!-- BEGIN: Page Vendor JS-->
+    <script src="{{ asset('app-assets/vendors/js/ui/jquery.sticky.js') }}"></script>
+    <!-- END: Page Vendor JS-->
+
+    <!-- BEGIN: Theme JS-->
+    <script src="{{ asset('app-assets/js/core/app-menu.js') }}"></script>
+    <script src="{{ asset('app-assets/js/core/app.js') }}"></script>
+    <!-- END: Theme JS-->
+
+    <!-- BEGIN: Page JS-->
+    <!-- END: Page JS-->
+
+    <script>
+        $(window).on('load', function() {
+            if (feather) {
+                feather.replace({
+                    width: 14,
+                    height: 14
+                });
+            }
+        })
+    </script>
+
+
     @yield('scripts')
     <!-- Page Specific JS File -->
 
