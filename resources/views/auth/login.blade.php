@@ -6,95 +6,113 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <title>..: : : : : : : : : : Cardiac : : : : : : : : : :...</title>
 
-    <!-- General CSS Files -->
-    <link rel="stylesheet" href="{{ asset('dist/modules/bootstrap/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('dist/modules/fontawesome/css/all.min.css') }}">
+    <link rel="apple-touch-icon" href="{{ asset('app-assets/images/ico/apple-icon-120.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('app-assets/images/ico/favicon.ico') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600"
+        rel="stylesheet">
 
-    <!-- CSS Libraries -->
-    <link rel="stylesheet" href="{{ asset('dist/modules/bootstrap-social/bootstrap-social.css') }}">
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/vendors.min.css') }}">
+    <!-- END: Vendor CSS-->
 
-    <!-- Template CSS -->
-    <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('dist/css/components.css') }}">
+    <!-- BEGIN: Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/bootstrap-extended.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/colors.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/components.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/themes/dark-layout.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/themes/bordered-layout.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/themes/semi-dark-layout.css') }}">
+
+    <!-- BEGIN: Page CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/forms/form-validation.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pages/page-auth.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pages/ui-feather.css') }}">
 
 </head>
 
-<body style="background-image: url('{{ asset('dist/img/login-bg.jpg') }}'); background-size: cover;">
-    <div id="app">
-        <section class="section">
-            <div class="container">
-                <div class="row">
-                    <div
-                        class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
-                        <div class="login-brand">
-                            <img src="{{ asset('dist/img/cardiac.svg') }}" alt="logo" width="100"
-                                class="">
-                        </div>
+<body class="horizontal-layout horizontal-menu blank-page navbar-floating footer-static" data-open="hover"
+    data-menu="horizontal-menu" data-col="blank-page"
+    style="background-image: url('{{ asset('app-assets/images/login-bg.jpg') }}'); background-size: cover;">
 
-                        <div class="card card-primary">
+    <!-- BEGIN: Content-->
+    <div class="app-content content ">
+        <div class="content-wrapper">
+            <div class="content-body">
+                <div class="auth-wrapper auth-v1 px-2">
+                    <div class="auth-inner py-2">
+                        <!-- Login v1 -->
+                        <div class="card mb-0">
                             <div class="card-body">
-                                <form method="POST" action="{{ url('/logueo') }}" class="needs-validation"
-                                    novalidate="">
+                                <a href="javascript:void(0);" class="brand-logo">
+                                    <img src="{{ asset('app-assets/images/cardiac.svg') }}" alt="logo" width="80" class="">
+                                </a>
+
+                                <form class="auth-login-form needs-validation" method="POST" action="{{ url('/logueo') }}">
                                     @csrf
                                     <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input id="email" type="email" class="form-control @if ($errors->has('email')) is-invalid @endif"
-                                            name="email" value="{{ old('email') }}" tabindex="1" autofocus>
+                                        <label for="login-email" class="form-label">Correo Electrónico</label>
+                                        <input type="text" class="form-control @if ($errors->has('email')) is-invalid @endif" id="login-email" name="email" placeholder="john@example.com" tabindex="1" autofocus />
                                         @if ($errors->has('email'))
-                                            <div class="invalid-feedback">
-                                                {{ $errors->first('email') }}
-                                            </div>
-                                        @endif
+                                        <div class="invalid-feedback">
+                                            {{ $errors->first('email') }}
+                                        </div>
+                                    @endif
                                     </div>
 
                                     <div class="form-group">
-                                        <div class="d-block">
-                                            <label for="password" class="control-label">Password</label>
+                                        <div class="d-flex justify-content-between">
+                                            <label for="login-password">Contraseña</label>
                                         </div>
-                                        <input id="password" type="password"
-                                            class="form-control @if ($errors->has('password')) is-invalid @endif" name="password" tabindex="2">
-                                        @if ($errors->has('password'))
-                                            <div class="invalid-feedback">
-                                                {{ $errors->first('password') }}
+                                        <div class="input-group input-group-merge form-password-toggle">
+                                            <input type="password" name="password" class="form-control form-control-merge @if ($errors->has('password')) is-invalid @endif" id="login-password" name="login-password" tabindex="2" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="login-password" />
+                                            <div class="input-group-append">
+                                                <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
                                             </div>
-                                        @endif
+                                            @if ($errors->has('password'))
+                                        <div class="invalid-feedback">
+                                            {{ $errors->first('password') }}
+                                        </div>
+                                    @endif
+                                        </div>
                                     </div>
-
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" name="remember" class="custom-control-input"
-                                                tabindex="3" id="remember-me">
-                                            <label class="custom-control-label" for="remember-me">Recuerdame</label>
+                                            <input class="custom-control-input" type="checkbox" name="remember" id="remember-me" tabindex="3" />
+                                            <label class="custom-control-label" for="remember-me"> Recuerdame </label>
                                         </div>
                                     </div>
-
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
-                                            INICIAR SESIÓN
-                                        </button>
-                                    </div>
+                                    <button class="btn btn-primary btn-block" tabindex="4">INICIAR SESION</button>
                                 </form>
                             </div>
                         </div>
-                        <div class="simple-footer">
-                            Copyright ©
-                            <script>
-                                document.write(new Date().getFullYear())
-                            </script>. Todos los derechos reservados
-                        </div>
+                        <!-- /Login v1 -->
                     </div>
                 </div>
+
             </div>
-        </section>
+        </div>
     </div>
+    <!-- END: Content-->
 
-    <!-- General JS Scripts -->
-    <script src="{{ asset('dist/modules/jquery.min.js') }}"></script>
-    <script src="{{ asset('dist/modules/popper.js') }}"></script>
-    <script src="{{ asset('dist/modules/bootstrap/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('dist/modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
-    <script src="{{ asset('dist/modules/moment.min.js') }}"></script>
+    <!-- BEGIN: Vendor JS-->
+    <script src="{{ asset('app-assets/vendors/js/vendors.min.js') }}"></script>
+    <!-- BEGIN Vendor JS-->
 
+    <!-- BEGIN: Page Vendor JS-->
+    <script src="{{ asset('app-assets/vendors/js/ui/jquery.sticky.js') }}"></script>
+    <script src="{{ asset('app-assets/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
+    <!-- END: Page Vendor JS-->
+
+    <!-- BEGIN: Theme JS-->
+    <script src="{{ asset('app-assets/js/core/app-menu.js') }}"></script>
+    <script src="{{ asset('app-assets/js/core/app.js') }}"></script>
+    <!-- END: Theme JS-->
+
+    <!-- BEGIN: Page JS-->
+    <script src="{{ asset('app-assets/js/scripts/pages/page-auth-login.js') }}"></script>
+    <script src="{{ asset('app-assets/js/scripts/ui/ui-feather.min.js') }}"></script>
+    <!-- END: Page JS-->
 
 </body>
 
