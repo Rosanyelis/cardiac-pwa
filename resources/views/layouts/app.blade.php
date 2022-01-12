@@ -161,13 +161,13 @@
                                 </a>
                             </li>
                             <li data-menu="">
-                                <a class="dropdown-item d-flex align-items-center" href="layout-boxed.html"
+                                <a class="dropdown-item d-flex align-items-center" href="{{ url('/configuracion/referidos') }}"
                                     data-toggle="dropdown" data-i18n="Referidos">
                                     <span data-i18n="Referidos">Referidos</span>
                                 </a>
                             </li>
                             <li data-menu="">
-                                <a class="dropdown-item d-flex align-items-center" href="layout-boxed.html"
+                                <a class="dropdown-item d-flex align-items-center" href="{{ url('/configuracion/tipo-de-consultas') }}"
                                     data-toggle="dropdown" data-i18n="Tipos de Consultas">
                                     <span data-i18n="Tipos de Consultas">Tipos de Consultas</span>
                                 </a>

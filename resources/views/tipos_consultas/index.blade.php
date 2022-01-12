@@ -14,14 +14,14 @@
         <div class="content-header-left col-md-9 col-12 mb-2">
             <div class="row breadcrumbs-top">
                 <div class="col-12">
-                    <h2 class="content-header-title float-left mb-0">Antecedentes</h2>
+                    <h2 class="content-header-title float-left mb-0">Tipos de Consultas</h2>
                     <div class="breadcrumb-wrapper">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
                                 <a href="{{ url('/dashboard') }}">Dashboard</a>
                             </li>
                             <li class="breadcrumb-item">Configuración</li>
-                            <li class="breadcrumb-item active">Antecedentes</li>
+                            <li class="breadcrumb-item active">Tipos de Consultas</li>
                         </ol>
                     </div>
                 </div>
@@ -31,8 +31,8 @@
             <div class="form-group breadcrumb-right">
                 <div class="dropdown">
                     <button class="btn btn-primary waves-effect waves-float waves-light" type="button" aria-haspopup="true"
-                        aria-expanded="false" data-toggle="modal" data-target="#createAntecedente">
-                        Crear Antecedente
+                        aria-expanded="false" data-toggle="modal" data-target="#createTipoconsulta">
+                        Crear Tipo de Consulta
                     </button>
                 </div>
             </div>
@@ -45,13 +45,13 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header border-bottom">
-                        <h4 class="card-title">Listado de Antecedentes</h4>
+                        <h4 class="card-title">Listado de Tipos de Consultas</h4>
                     </div>
                     <div class="card-datatable pb-2">
-                        <table class="dt-antecedentes table">
+                        <table class="dt-tipoconsulta table">
                             <thead>
                                 <tr>
-                                    <th>Antecedentes</th>
+                                    <th>Tipos de Consultas</th>
                                     <th width="100px">Acciones</th>
                                 </tr>
                             </thead>
@@ -59,20 +59,20 @@
                     </div>
                 </div>
                 <!-- Modal -->
-                <div class="modal fade" id="createAntecedente" tabindex="-1" role="dialog"
+                <div class="modal fade" id="createTipoconsulta" tabindex="-1" role="dialog"
                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <form class="needs-validation" action="">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalCenterTitle">Crear Antecedente</h5>
+                                    <h5 class="modal-title" id="exampleModalCenterTitle">Crear Tipo de Consulta</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <input type="text" class="form-control" id="nombreAntecedente"
-                                        placeholder="Ejm: Diabetes">
+                                    <input type="text" class="form-control" id="nombreTipoconsulta"
+                                        placeholder="Ejm: Electrocardiograma">
                                     <div class="invalid-feedback">El campo Nombre es obligatorio</div>
                                 </div>
                                 <div class="modal-footer">
@@ -103,8 +103,8 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            var dt_basic = $('.dt-antecedentes').DataTable({
-                ajax: '{{ url('/configuracion/antecedentes-json') }}',
+            var dt_basic = $('.dt-tipoconsulta').DataTable({
+                ajax: '{{ url('/configuracion/tipo-de-consultas-json') }}',
                 columns: [{
                     data: 'nombre'
                 }, ],
@@ -144,8 +144,8 @@
             });
             // Crear registro
             $('.create-record').on('click', function() {
-                let dataInput = $('#nombreAntecedente').val();
-                let UrlBase = '{{ url('configuracion/antecedentes/guardar-antecedente') }}/';
+                let dataInput = $('#nombreTipoconsulta').val();
+                let UrlBase = '{{ url('configuracion/tipo-de-consultas/guardar-tipo-de-consulta') }}/';
                 $.ajax({
                     type: 'POST',
                     url: UrlBase,
@@ -163,21 +163,21 @@
                             }
                         });
                         $('.close').click();
-                        $('#nombreAntecedente').removeClass('is-invalid');
-                        $('#nombreAntecedente').val('');
+                        $('#nombreTipoconsulta').removeClass('is-invalid');
+                        $('#nombreTipoconsulta').val('');
                         dt_basic.ajax.reload();
                     },
                     error: function(response) {
-                        $('#nombreAntecedente').addClass('is-invalid');
+                        $('#nombreTipoconsulta').addClass('is-invalid');
                         $('.invalid-feedback').text(response.responseJSON.errors.nombre);
                     }
                 });
             });
             // Eliminar registro
-            $('.dt-antecedentes tbody').on('click', '.delete-record', function() {
+            $('.dt-tipoconsulta tbody').on('click', '.delete-record', function() {
                 let dataid = $(this).data('id');
-                let baseUrl = '{{ url('configuracion/antecedentes') }}/' + dataid +
-                    '/eliminar-antecedente';
+                let baseUrl = '{{ url('configuracion/tipo-de-consultas') }}/' + dataid +
+                    '/eliminar-tipo-de-consulta';
                 Swal.fire({
                     title: '¿Está seguro de eliminar este registro?',
                     text: "No podra recuperarlo nuevamente!",
@@ -212,8 +212,8 @@
             });
             // Limpieza de input al cerrar el modal
             $('.close').click(function() {
-                $('#nombreAntecedente').val('');
-                $('#nombreAntecedente').removeClass('is-invalid');
+                $('#nombreTipoconsulta').val('');
+                $('#nombreTipoconsulta').removeClass('is-invalid');
             });
         });
     </script>

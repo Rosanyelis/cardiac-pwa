@@ -1,5 +1,7 @@
 <?php
 use App\Http\Controllers\AntecedenteController;
+use App\Http\Controllers\ReferidosController;
+use App\Http\Controllers\TipoConsultaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,9 +24,21 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::group(['prefix' => '/configuracion'], function() {
+    // Antecedentes
     Route::get('/antecedentes-json', [AntecedenteController::class, 'json'])->name('antecedentes.json');
     Route::get('/antecedentes', [AntecedenteController::class, 'index'])->name('antecedentes.index');
-    Route::get('/antecedentes/nuevo-antecedente', [AntecedenteController::class, 'create'])->name('antecedentes.create');
     Route::post('/antecedentes/guardar-antecedente', [AntecedenteController::class, 'store'])->name('antecedentes.store');
     Route::delete('/antecedentes/{id}/eliminar-antecedente', [AntecedenteController::class, 'destroy'])->name('antecedentes.destroy');
+
+    // Referidos
+    Route::get('/referidos-json', [ReferidosController::class, 'json'])->name('referidos.json');
+    Route::get('/referidos', [ReferidosController::class, 'index'])->name('referidos.index');
+    Route::post('/referidos/guardar-referido', [ReferidosController::class, 'store'])->name('referidos.store');
+    Route::delete('/referidos/{id}/eliminar-referido', [ReferidosController::class, 'destroy'])->name('referidos.destroy');
+
+    // Tipo de Consulta
+    Route::get('/tipo-de-consultas-json', [TipoConsultaController::class, 'json'])->name('tipo_consultas.json');
+    Route::get('/tipo-de-consultas', [TipoConsultaController::class, 'index'])->name('tipo_consultas.index');
+    Route::post('/tipo-de-consultas/guardar-tipo-de-consulta', [TipoConsultaController::class, 'store'])->name('tipo_consultas.store');
+    Route::delete('/tipo-de-consultas/{id}/eliminar-tipo-de-consulta', [TipoConsultaController::class, 'destroy'])->name('tipo_consultas.destroy');
 });

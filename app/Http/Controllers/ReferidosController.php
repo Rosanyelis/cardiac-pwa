@@ -2,10 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Referido;
 use Illuminate\Http\Request;
 
 class ReferidosController extends Controller
 {
+    public function json()
+    {
+        $results = Referido::all()->toArray();
+        $data = ['data' => $results];
+        return response()->json($data);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +21,7 @@ class ReferidosController extends Controller
      */
     public function index()
     {
-        //
+        return view('referidos.index');
     }
 
     /**
@@ -34,7 +42,19 @@ class ReferidosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre' => ['required', 'unique:referidos'],
+        ],
+            [
+                'nombre.required' => 'El campo Nombre es obligatorio',
+                'nombre.unique' => 'El valor del campo Nombre ya existe',
+            ]);
+
+        Referido::create([
+            'nombre' => $request->nombre,
+        ]);
+
+        return response()->json(200);
     }
 
     /**
@@ -79,6 +99,13 @@ class ReferidosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $count = Referido::where('id', $id)->count();
+
+        if ($count > 0) {
+            Referido::where('id', $id)->delete();
+            return response()->json(200);
+        } else {
+            return response()->json();
+        }
     }
 }

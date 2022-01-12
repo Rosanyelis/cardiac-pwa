@@ -3,15 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Antecedente;
-use App\Http\Requests\Antecedentes\StoreAntecedenteRequest;
-use App\Http\Requests\Antecedentes\UpdateAntecedenteRequest;
+use Illuminate\Http\Request;
 
 class AntecedenteController extends Controller
 {
     public function json()
     {
         $results = Antecedente::all()->toArray();
-        $data =  ['data' => $results,];
+        $data = ['data' => $results];
         return response()->json($data);
     }
     /**
@@ -31,23 +30,30 @@ class AntecedenteController extends Controller
      */
     public function create()
     {
-        return view('antecedentes.create');
+        
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreAntecedenteRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreAntecedenteRequest $request)
+    public function store(Request $request)
     {
+        $request->validate([
+            'nombre' => ['required', 'unique:antecedentes'],
+        ],
+            [
+                'nombre.required' => 'El campo Nombre es obligatorio',
+                'nombre.unique' => 'El valor del campo Nombre ya existe',
+            ]);
 
         Antecedente::create([
             'nombre' => $request->nombre,
         ]);
 
-        return redirect('/configuracion/antecedentes')->with('success', 'Registro Guardado');
+        return response()->json(200);
     }
 
     /**
@@ -94,7 +100,7 @@ class AntecedenteController extends Controller
     {
         $count = Antecedente::where('id', $id)->count();
 
-        if ($count>0) {
+        if ($count > 0) {
             Antecedente::where('id', $id)->delete();
             return response()->json(200);
         } else {

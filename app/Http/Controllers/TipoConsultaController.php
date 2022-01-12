@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class TipoConsultaController extends Controller
 {
+    public function json()
+    {
+        $results = TipoConsulta::all()->toArray();
+        $data = ['data' => $results];
+        return response()->json($data);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,7 @@ class TipoConsultaController extends Controller
      */
     public function index()
     {
-        //
+        return view('tipos_consultas.index');
     }
 
     /**
@@ -35,7 +42,19 @@ class TipoConsultaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre' => ['required', 'unique:tipo_consultas'],
+        ],
+            [
+                'nombre.required' => 'El campo Nombre es obligatorio',
+                'nombre.unique' => 'El valor del campo Nombre ya existe',
+            ]);
+
+        TipoConsulta::create([
+            'nombre' => $request->nombre,
+        ]);
+
+        return response()->json(200);
     }
 
     /**
@@ -78,8 +97,15 @@ class TipoConsultaController extends Controller
      * @param  \App\Models\TipoConsulta  $tipoConsulta
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TipoConsulta $tipoConsulta)
+    public function destroy($id)
     {
-        //
+        $count = TipoConsulta::where('id', $id)->count();
+
+        if ($count > 0) {
+            TipoConsulta::where('id', $id)->delete();
+            return response()->json(200);
+        } else {
+            return response()->json();
+        }
     }
 }
