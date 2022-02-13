@@ -173,7 +173,7 @@
                                 </a>
                             </li>
                             <li data-menu="">
-                                <a class="dropdown-item d-flex align-items-center" href="layout-boxed.html"
+                                <a class="dropdown-item d-flex align-items-center" href="{{ url('/configuracion/plantillas') }}"
                                     data-toggle="dropdown" data-i18n="Plantillas">
                                     <span data-i18n="Plantillas">Plantillas</span>
                                 </a>
@@ -246,17 +246,6 @@
 
     <!-- BEGIN: Page JS-->
     <!-- END: Page JS-->
-
-    <script>
-        $(window).on('load', function() {
-            if (feather) {
-                feather.replace({
-                    width: 14,
-                    height: 14
-                });
-            }
-        })
-    </script>
 
 
     @yield('scripts')

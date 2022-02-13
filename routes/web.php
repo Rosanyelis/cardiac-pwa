@@ -2,6 +2,7 @@
 use App\Http\Controllers\AntecedenteController;
 use App\Http\Controllers\ReferidosController;
 use App\Http\Controllers\TipoConsultaController;
+use App\Http\Controllers\PlantillaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,4 +42,13 @@ Route::group(['prefix' => '/configuracion'], function() {
     Route::get('/tipo-de-consultas', [TipoConsultaController::class, 'index'])->name('tipo_consultas.index');
     Route::post('/tipo-de-consultas/guardar-tipo-de-consulta', [TipoConsultaController::class, 'store'])->name('tipo_consultas.store');
     Route::delete('/tipo-de-consultas/{id}/eliminar-tipo-de-consulta', [TipoConsultaController::class, 'destroy'])->name('tipo_consultas.destroy');
+
+    // Tipo de Consulta
+    Route::get('/plantillas-json', [PlantillaController::class, 'json'])->name('plantillas.json');
+    Route::get('/plantillas', [PlantillaController::class, 'index'])->name('plantillas.index');
+    Route::post('/plantillas/guardar-plantilla', [PlantillaController::class, 'store'])->name('plantillas.store');
+    Route::get('/plantillas/{id}/ver-plantilla', [PlantillaController::class, 'show'])->name('plantillas.show');
+    Route::get('/plantillas/{id}/editar-plantilla', [PlantillaController::class, 'edit'])->name('plantillas.edit');
+    Route::post('/plantillas/{id}/actualizar-plantilla', [PlantillaController::class, 'update'])->name('plantillas.update');
+    Route::delete('/plantillas/{id}/eliminar-plantilla', [PlantillaController::class, 'destroy'])->name('plantillas.destroy');
 });
