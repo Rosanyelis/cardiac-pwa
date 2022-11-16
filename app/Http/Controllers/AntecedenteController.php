@@ -30,7 +30,7 @@ class AntecedenteController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**
@@ -44,10 +44,10 @@ class AntecedenteController extends Controller
         $request->validate([
             'nombre' => ['required', 'unique:antecedentes'],
         ],
-            [
-                'nombre.required' => 'El campo Nombre es obligatorio',
-                'nombre.unique' => 'El valor del campo Nombre ya existe',
-            ]);
+        [
+            'nombre.required' => 'El campo Nombre es obligatorio',
+            'nombre.unique' => 'El valor del campo Nombre ya existe',
+        ]);
 
         Antecedente::create([
             'nombre' => $request->nombre,
@@ -73,21 +73,45 @@ class AntecedenteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Antecedente $antecedente)
+    public function edit($id)
     {
-        //
+        $count = Antecedente::where('id', $id)->count();
+        if ($count > 0) {
+            $results = Antecedente::where('id', $id)->first();
+            $data = ['data' => $results];
+
+            return response()->json($data);
+        } else {
+            return response()->json(400);
+        }
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateAntecedenteRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAntecedenteRequest $request, Antecedente $antecedente)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nombre' => ['required'],
+        ],
+        [
+            'nombre.required' => 'El campo Nombre es obligatorio',
+        ]);
+
+        $count = Antecedente::where('id', $id)->count();
+        if ($count > 0) {
+            $registro = Antecedente::where('id', $id)->first();
+            $registro->nombre = $request->nombre;
+            $registro->save();
+
+            return response()->json(200);
+        } else {
+            return response()->json(400);
+        }
     }
 
     /**

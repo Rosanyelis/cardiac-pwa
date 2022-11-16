@@ -3,6 +3,9 @@ use App\Http\Controllers\AntecedenteController;
 use App\Http\Controllers\ReferidosController;
 use App\Http\Controllers\TipoConsultaController;
 use App\Http\Controllers\PlantillaController;
+use App\Http\Controllers\MedicamentoController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\CitasController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +32,8 @@ Route::group(['prefix' => '/configuracion'], function() {
     Route::get('/antecedentes-json', [AntecedenteController::class, 'json'])->name('antecedentes.json');
     Route::get('/antecedentes', [AntecedenteController::class, 'index'])->name('antecedentes.index');
     Route::post('/antecedentes/guardar-antecedente', [AntecedenteController::class, 'store'])->name('antecedentes.store');
+    Route::get('/antecedentes/{id}/editar-antecedente', [AntecedenteController::class, 'edit'])->name('antecedentes.edit');
+    Route::post('/antecedentes/{id}/actualizar-antecedente', [AntecedenteController::class, 'update'])->name('antecedentes.update');
     Route::delete('/antecedentes/{id}/eliminar-antecedente', [AntecedenteController::class, 'destroy'])->name('antecedentes.destroy');
 
     // Referidos
@@ -51,4 +56,28 @@ Route::group(['prefix' => '/configuracion'], function() {
     Route::get('/plantillas/{id}/editar-plantilla', [PlantillaController::class, 'edit'])->name('plantillas.edit');
     Route::post('/plantillas/{id}/actualizar-plantilla', [PlantillaController::class, 'update'])->name('plantillas.update');
     Route::delete('/plantillas/{id}/eliminar-plantilla', [PlantillaController::class, 'destroy'])->name('plantillas.destroy');
+
+    // Medicamentos
+    Route::get('/medicamentos-json', [MedicamentoController::class, 'json'])->name('medicamentos.json');
+    Route::get('/medicamentos', [MedicamentoController::class, 'index'])->name('medicamentos.index');
+    Route::post('/medicamentos/guardar-medicamento', [MedicamentoController::class, 'store'])->name('medicamentos.store');
+    Route::get('/medicamentos/{id}/ver-medicamento', [MedicamentoController::class, 'show'])->name('medicamentos.show');
+    Route::get('/medicamentos/{id}/editar-medicamento', [MedicamentoController::class, 'edit'])->name('medicamentos.edit');
+    Route::post('/medicamentos/{id}/actualizar-medicamento', [MedicamentoController::class, 'update'])->name('medicamentos.update');
+    Route::delete('/medicamentos/{id}/eliminar-medicamento', [MedicamentoController::class, 'destroy'])->name('medicamentos.destroy');
+
+     // Usuarios
+    Route::get('/usuarios-json', [UserController::class, 'json'])->name('usuarios.json');
+    Route::get('/usuarios', [UserController::class, 'index'])->name('usuarios.index');
+    Route::post('/usuarios/guardar-usuario', [UserController::class, 'store'])->name('usuarios.store');
+    Route::get('/usuarios/{id}/ver-usuario', [UserController::class, 'show'])->name('usuarios.show');
+    Route::get('/usuarios/{id}/editar-usuario', [UserController::class, 'edit'])->name('usuarios.edit');
+    Route::post('/usuarios/{id}/actualizar-usuario', [UserController::class, 'update'])->name('usuarios.update');
+    Route::delete('/usuarios/{id}/eliminar-usuario', [UserController::class, 'destroy'])->name('usuarios.destroy');
 });
+
+// Citas
+Route::get('/citas-json', [CitasController::class, 'json'])->name('citas.json');
+Route::get('/citas', [CitasController::class, 'index'])->name('citas.index');
+Route::post('/citas/guardar-cita', [CitasController::class, 'store'])->name('citas.store');
+Route::delete('/citas/{id}/eliminar-cita', [CitasController::class, 'destroy'])->name('citas.destroy');

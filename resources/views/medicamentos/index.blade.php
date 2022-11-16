@@ -8,20 +8,21 @@
     <link rel="stylesheet" type="text/css"
         href="{{ asset('app-assets/css/plugins/extensions/ext-component-sweet-alerts.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/forms/form-validation.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/summernote/summernote-lite.css') }}"/>
 @endsection
 @section('contenido')
     <div class="content-header row">
         <div class="content-header-left col-md-9 col-12 mb-2">
             <div class="row breadcrumbs-top">
                 <div class="col-12">
-                    <h2 class="content-header-title float-left mb-0">Antecedentes</h2>
+                    <h2 class="content-header-title float-left mb-0">Medicamentos</h2>
                     <div class="breadcrumb-wrapper">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
                                 <a href="{{ url('/dashboard') }}">Dashboard</a>
                             </li>
                             <li class="breadcrumb-item">Configuración</li>
-                            <li class="breadcrumb-item active">Antecedentes</li>
+                            <li class="breadcrumb-item active">Medicamentos</li>
                         </ol>
                     </div>
                 </div>
@@ -31,8 +32,8 @@
             <div class="form-group breadcrumb-right">
                 <div class="dropdown">
                     <button class="btn btn-primary waves-effect waves-float waves-light" type="button" aria-haspopup="true"
-                        aria-expanded="false" data-toggle="modal" data-target="#createAntecedente">
-                        Crear Antecedente
+                        aria-expanded="false" data-toggle="modal" data-target="#createMedicamento">
+                        Crear Medicamento
                     </button>
                 </div>
             </div>
@@ -45,13 +46,13 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header border-bottom">
-                        <h4 class="card-title">Listado de Antecedentes</h4>
+                        <h4 class="card-title">Listado de Medicamentos</h4>
                     </div>
                     <div class="card-datatable pb-2">
-                        <table class="dt-antecedentes table">
+                        <table class="dt-medicamento table">
                             <thead>
                                 <tr>
-                                    <th>Antecedentes</th>
+                                    <th>Medicamento</th>
                                     <th width="100px">Acciones</th>
                                 </tr>
                             </thead>
@@ -59,24 +60,41 @@
                     </div>
                 </div>
                 <!-- Modal -->
-                <div class="modal fade" id="createAntecedente" tabindex="-1" role="dialog"
+                <div class="modal fade" id="createMedicamento" tabindex="-1" role="dialog"
                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                         <div class="modal-content">
                             <form class="needs-validation" action="">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="titleModal">Crear Antecedente</h5>
+                                    <h5 class="modal-title" id="titleModal">Crear Medicamento</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <input type="text" class="form-control" id="nombreAntecedente"
-                                        placeholder="Ejm: Diabetes">
-                                    <div class="invalid-feedback">El campo Nombre es obligatorio</div>
+                                    <div class="form-group">
+                                        <label for="basicInput">Nombre de Medicamento</label>
+                                        <input type="text" class="form-control" id="nombreMedicamento"
+                                        placeholder="Ejm: Albendazol De 400Mg">
+                                        <div class="invalid-feedback nombre"></div>
+                                    </div>
+                                    <div class="mt-1">
+                                        <div class="form-group">
+                                            <label for="basicInput">Descripción</label>
+                                            <textarea class="form-control" name="content" id="descripcion"></textarea>
+                                            <div class="invalid-feedback textod"></div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-1">
+                                        <div class="form-group">
+                                            <label for="basicInput">Indicaciones</label>
+                                            <textarea class="form-control" name="content" id="indicaciones"></textarea>
+                                            <div class="invalid-feedback textoi"></div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" id="btnModal" class="btn btn-primary create-record">Crear</button>
+                                    <button id="btnModal" type="button" class="btn btn-primary create-record">Crear</button>
                                 </div>
                             </form>
                         </div>
@@ -95,6 +113,7 @@
     <script src="{{ asset('app-assets/vendors/js/tables/datatable/responsive.bootstrap4.js') }}"></script>
     <script src="{{ asset('app-assets/vendors/js/extensions/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('app-assets/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('app-assets/vendors/summernote/summernote-lite.js') }}"></script>
     <script>
         $(function() {
             'use strict';
@@ -103,8 +122,8 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            var dt_basic = $('.dt-antecedentes').DataTable({
-                ajax: '{{ url('/configuracion/antecedentes-json') }}',
+            var dt_basic = $('.dt-medicamento').DataTable({
+                ajax: '{{ url('/configuracion/medicamentos-json') }}',
                 columns: [{
                     data: 'nombre'
                 }, ],
@@ -130,8 +149,8 @@
                                 full.id + '">' +
                                 feather.icons['trash-2'].toSvg({
                                     class: 'font-medium-4'
-                                }) +
-                                '</a>'
+                                }) + '</a>'
+
                             );
                         }
                     }
@@ -147,16 +166,21 @@
                 displayLength: 7,
                 lengthMenu: [7, 10, 25, 50, 75, 100],
             });
+
             // Crear registro
             $('.create-record').on('click', function() {
-                let dataInput = $('#nombreAntecedente').val();
-                let UrlBase = '{{ url('configuracion/antecedentes/guardar-antecedente') }}/';
+                let dataNombre = $('#nombreMedicamento').val();
+                let dataDescripcion = $('#descripcion').val();
+                let dataIndicaciones = $('#indicaciones').val();
+                let UrlBase = '{{ url('configuracion/medicamentos/guardar-medicamento') }}/';
                 $.ajax({
                     type: 'POST',
                     url: UrlBase,
                     dataType: 'json',
                     data: {
-                        nombre: dataInput,
+                        nombre: dataNombre,
+                        descripcion: dataDescripcion,
+                        indicaciones: dataIndicaciones,
                     },
                     success: function(response) {
                         Swal.fire({
@@ -168,29 +192,39 @@
                             }
                         });
                         $('.close').click();
-                        $('#nombreAntecedente').removeClass('is-invalid');
-                        $('#nombreAntecedente').val('');
+                        $('#nombreMedicamento').removeClass('is-invalid');
+                        $('#nombreMedicamento').val('');
+                        $('#descripcion').removeClass('is-invalid');
+                        $('#descripcion').summernote("reset");
+                        $('#indicaciones').removeClass('is-invalid');
+                        $('#indicaciones').summernote("reset");
                         dt_basic.ajax.reload();
                     },
                     error: function(response) {
-                        $('#nombreAntecedente').addClass('is-invalid');
-                        $('.invalid-feedback').text(response.responseJSON.errors.nombre);
+                        $('#nombreMedicamento').addClass('is-invalid');
+                        $('.nombre').text(response.responseJSON.errors.nombre);
+                        $('#descripcion').addClass('is-invalid');
+                        $('.textod').text(response.responseJSON.errors.descripcion);
+                        $('#indicaciones').addClass('is-invalid');
+                        $('.textoi').text(response.responseJSON.errors.indicaciones);
                     }
                 });
             });
+
             // Mostrar Registro a Editar
-            $('.dt-antecedentes tbody').on('click', '.editar-record',function() {
+            $('.dt-medicamento tbody').on('click', '.editar-record',function() {
                 let dataid = $(this).data('id');
-                let baseUrl = '{{ url('configuracion/antecedentes') }}/' + dataid +
-                    '/editar-antecedente';
+                let baseUrl = '{{ url('configuracion/medicamentos') }}/' + dataid +
+                    '/editar-medicamento';
                 $.ajax({
                     type: 'GET',
                     url: baseUrl,
                     dataType: 'json',
                     success: function(response) {
-                        $('#createAntecedente').modal('show');
-                        $('#titleModal').text('Editar Antecedente');
-                        $('#nombreAntecedente').val(response.data.nombre);
+                        $('#createMedicamento').modal('show');
+                        $('#titleModal').text('Editar Medicamento');
+                        $('#nombreMedicamento').val(response.data.nombre);
+                        $('#texto').summernote('editor.pasteHTML', response.data.texto);
                         $('#btnModalUpdate').remove();
                         let btn = '<button type="button" id="btnModalUpdate" class="btn btn-primary" data-id="'+ dataid +'">Actualizar</button>'
                         $('#btnModal').remove();
@@ -207,17 +241,21 @@
                     }
                 });
             });
-            // Actualizar registro
-            $('body').on('click', '#btnModalUpdate', function() {
+             // Actualizar registro
+             $('body').on('click', '#btnModalUpdate', function() {
                 let dataid = $(this).attr('data-id');
-                let dataInput = $('#nombreAntecedente').val();
-                let UrlBase = '{{ url('configuracion/antecedentes') }}/'+ dataid +'/actualizar-antecedente';
+                let dataNombre = $('#nombreMedicamento').val();
+                let dataDescripcion = $('#descripcion').val();
+                let dataIndicaciones = $('#indicaciones').val();
+                let UrlBase = '{{ url('configuracion/medicamentos') }}/'+ dataid +'/actualizar-medicamento';
                 $.ajax({
                     type: 'POST',
                     url: UrlBase,
                     dataType: 'json',
                     data: {
-                        nombre: dataInput,
+                        nombre: dataNombre,
+                        descripcion: dataDescripcion,
+                        indicaciones: dataIndicaciones,
                     },
                     success: function(response) {
                         Swal.fire({
@@ -229,21 +267,23 @@
                             }
                         });
                         $('.close').click();
-                        $('#nombreAntecedente').removeClass('is-invalid');
-                        $('#nombreAntecedente').val('');
+                        $('#nombreMedicamento').removeClass('is-invalid');
+                        $('#nombreMedicamento').val('');
+                        $('#descripcion').summernote("reset");
+                        $('#indicaciones').summernote("reset");
                         dt_basic.ajax.reload();
                     },
                     error: function(response) {
-                        $('#nombreAntecedente').addClass('is-invalid');
+                        $('#nombreMedicamento').addClass('is-invalid');
                         $('.invalid-feedback').text(response.responseJSON.errors.nombre);
                     }
                 });
             });
             // Eliminar registro
-            $('.dt-antecedentes tbody').on('click', '.delete-record', function() {
+            $('.dt-plantilla tbody').on('click', '.delete-record', function() {
                 let dataid = $(this).data('id');
-                let baseUrl = '{{ url('configuracion/antecedentes') }}/' + dataid +
-                    '/eliminar-antecedente';
+                let baseUrl = '{{ url('configuracion/plantillas') }}/' + dataid +
+                    '/eliminar-plantilla';
                 Swal.fire({
                     title: '¿Está seguro de eliminar este registro?',
                     text: "No podra recuperarlo nuevamente!",
@@ -278,11 +318,27 @@
             });
             // Limpieza de input al cerrar el modal
             $('.close').click(function() {
-                $('#nombreAntecedente').val('');
-                $('#nombreAntecedente').removeClass('is-invalid');
+                $('#nombrePlantilla').val('');
+                $('#nombrePlantilla').removeClass('is-invalid');
             });
-
-
+            $('#descripcion').summernote({
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['view', ['help']]
+                ]
+            });
+            $('#indicaciones').summernote({
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['view', ['help']]
+                ]
+            });
         });
     </script>
 @endsection

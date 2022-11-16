@@ -14,14 +14,14 @@
         <div class="content-header-left col-md-9 col-12 mb-2">
             <div class="row breadcrumbs-top">
                 <div class="col-12">
-                    <h2 class="content-header-title float-left mb-0">Antecedentes</h2>
+                    <h2 class="content-header-title float-left mb-0">Usuarios</h2>
                     <div class="breadcrumb-wrapper">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
                                 <a href="{{ url('/dashboard') }}">Dashboard</a>
                             </li>
                             <li class="breadcrumb-item">Configuración</li>
-                            <li class="breadcrumb-item active">Antecedentes</li>
+                            <li class="breadcrumb-item active">Usuarios</li>
                         </ol>
                     </div>
                 </div>
@@ -31,8 +31,8 @@
             <div class="form-group breadcrumb-right">
                 <div class="dropdown">
                     <button class="btn btn-primary waves-effect waves-float waves-light" type="button" aria-haspopup="true"
-                        aria-expanded="false" data-toggle="modal" data-target="#createAntecedente">
-                        Crear Antecedente
+                        aria-expanded="false" data-toggle="modal" data-target="#createUsuario">
+                        Crear Usuario
                     </button>
                 </div>
             </div>
@@ -45,13 +45,15 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header border-bottom">
-                        <h4 class="card-title">Listado de Antecedentes</h4>
+                        <h4 class="card-title">Listado de Usuarios</h4>
                     </div>
                     <div class="card-datatable pb-2">
-                        <table class="dt-antecedentes table">
+                        <table class="dt-usuarios table">
                             <thead>
                                 <tr>
-                                    <th>Antecedentes</th>
+                                    <th>Usuario</th>
+                                    <th>Correo</th>
+                                    <th>Rol</th>
                                     <th width="100px">Acciones</th>
                                 </tr>
                             </thead>
@@ -59,24 +61,48 @@
                     </div>
                 </div>
                 <!-- Modal -->
-                <div class="modal fade" id="createAntecedente" tabindex="-1" role="dialog"
+                <div class="modal fade" id="createUsuario" tabindex="-1" role="dialog"
                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <form class="needs-validation" action="">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="titleModal">Crear Antecedente</h5>
+                                    <h5 class="modal-title" id="exampleModalCenterTitle">Crear Usuario</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <input type="text" class="form-control" id="nombreAntecedente"
-                                        placeholder="Ejm: Diabetes">
-                                    <div class="invalid-feedback">El campo Nombre es obligatorio</div>
+                                    <div class="form-group">
+                                        <label for="basicInput">Nombre Usuario</label>
+                                        <input type="text" class="form-control" id="nombreUsuario"
+                                            placeholder="Ejm: Dr.Jon Doe">
+                                        <div class="invalid-feedback nombre"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="basicInput">Correo Electrónico</label>
+                                        <input type="email" class="form-control" id="correo"
+                                            placeholder="Ejm: Dr.Jon Doe">
+                                        <div class="invalid-feedback email"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="basicInput">Rol</label>
+                                        <select class="form-control" id="rol">
+                                            <option>Seleccione una opción</option>
+                                            <option value="Medico">Médico</option>
+                                            <option value="Asistente">Asistente</option>
+                                        </select>
+                                        <div class="invalid-feedback rol"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="basicInput">Contraseña</label>
+                                        <input type="password" class="form-control" id="password"
+                                            placeholder="Ejm: Dr.Jon Doe">
+                                        <div class="invalid-feedback password"></div>
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" id="btnModal" class="btn btn-primary create-record">Crear</button>
+                                    <button type="button" class="btn btn-primary create-record">Crear</button>
                                 </div>
                             </form>
                         </div>
@@ -103,11 +129,13 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            var dt_basic = $('.dt-antecedentes').DataTable({
-                ajax: '{{ url('/configuracion/antecedentes-json') }}',
-                columns: [{
-                    data: 'nombre'
-                }, ],
+            var dt_basic = $('.dt-usuarios').DataTable({
+                ajax: '{{ url('/configuracion/usuarios-json') }}',
+                columns: [
+                    { data: 'name' },
+                    { data: 'email'},
+                    { data: 'rol' }
+                ],
                 columnDefs: [{
                         // For Responsive
                         className: 'control',
@@ -116,16 +144,11 @@
                     },
                     {
                         // Actions
-                        targets: 1,
+                        targets: 3,
                         title: 'Acciones',
                         orderable: false,
                         render: function(data, type, full, meta) {
                             return (
-                                '<a class="item-edit text-primary editar-record mr-50" data-id="' +
-                                full.id + '">' +
-                                feather.icons['edit'].toSvg({
-                                    class: 'font-medium-4 '
-                                }) +'</a>'+
                                 '<a class="item-edit text-danger delete-record" data-id="' +
                                 full.id + '">' +
                                 feather.icons['trash-2'].toSvg({
@@ -149,14 +172,20 @@
             });
             // Crear registro
             $('.create-record').on('click', function() {
-                let dataInput = $('#nombreAntecedente').val();
-                let UrlBase = '{{ url('configuracion/antecedentes/guardar-antecedente') }}/';
+                let dataInputname = $('#nombreUsuario').val();
+                let dataInputemail = $('#correo').val();
+                let dataInputrol = $('#rol').val();
+                let dataInputpassword = $('#password').val();
+                let UrlBase = '{{ url('configuracion/usuarios/guardar-usuario') }}/';
                 $.ajax({
                     type: 'POST',
                     url: UrlBase,
                     dataType: 'json',
                     data: {
-                        nombre: dataInput,
+                        name: dataInputname,
+                        email: dataInputemail,
+                        rol: dataInputrol,
+                        password: dataInputpassword,
                     },
                     success: function(response) {
                         Swal.fire({
@@ -168,82 +197,34 @@
                             }
                         });
                         $('.close').click();
-                        $('#nombreAntecedente').removeClass('is-invalid');
-                        $('#nombreAntecedente').val('');
+                        $('#nombreUsuario').removeClass('is-invalid');
+                        $('#nombreUsuario').val('');
+                        $('#correo').removeClass('is-invalid');
+                        $('#correo').val('');
+                        $('#rol').removeClass('is-invalid');
+                        $('#rol').val('');
+                        $('#password').removeClass('is-invalid');
+                        $('#password').val('');
                         dt_basic.ajax.reload();
                     },
                     error: function(response) {
-                        $('#nombreAntecedente').addClass('is-invalid');
-                        $('.invalid-feedback').text(response.responseJSON.errors.nombre);
-                    }
-                });
-            });
-            // Mostrar Registro a Editar
-            $('.dt-antecedentes tbody').on('click', '.editar-record',function() {
-                let dataid = $(this).data('id');
-                let baseUrl = '{{ url('configuracion/antecedentes') }}/' + dataid +
-                    '/editar-antecedente';
-                $.ajax({
-                    type: 'GET',
-                    url: baseUrl,
-                    dataType: 'json',
-                    success: function(response) {
-                        $('#createAntecedente').modal('show');
-                        $('#titleModal').text('Editar Antecedente');
-                        $('#nombreAntecedente').val(response.data.nombre);
-                        $('#btnModalUpdate').remove();
-                        let btn = '<button type="button" id="btnModalUpdate" class="btn btn-primary" data-id="'+ dataid +'">Actualizar</button>'
-                        $('#btnModal').remove();
-                        $('.modal-footer').append(btn);
-                    },error: function(response) {
-                        Swal.fire({
-                            title: 'Error al Mostrar el Registro!',
-                            icon: 'error',
-                            customClass: {
-                            confirmButton: 'btn btn-primary'
-                            },
-                            buttonsStyling: false
-                        });
-                    }
-                });
-            });
-            // Actualizar registro
-            $('body').on('click', '#btnModalUpdate', function() {
-                let dataid = $(this).attr('data-id');
-                let dataInput = $('#nombreAntecedente').val();
-                let UrlBase = '{{ url('configuracion/antecedentes') }}/'+ dataid +'/actualizar-antecedente';
-                $.ajax({
-                    type: 'POST',
-                    url: UrlBase,
-                    dataType: 'json',
-                    data: {
-                        nombre: dataInput,
-                    },
-                    success: function(response) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Exito!',
-                            text: 'Registro Actualizado Exitosamente.',
-                            customClass: {
-                                confirmButton: 'btn btn-success'
-                            }
-                        });
-                        $('.close').click();
-                        $('#nombreAntecedente').removeClass('is-invalid');
-                        $('#nombreAntecedente').val('');
-                        dt_basic.ajax.reload();
-                    },
-                    error: function(response) {
-                        $('#nombreAntecedente').addClass('is-invalid');
-                        $('.invalid-feedback').text(response.responseJSON.errors.nombre);
+                        console.log(response.responseJSON.errors)
+                        $('#nombreUsuario').addClass('is-invalid');
+                        $('.nombre').text(response.responseJSON.errors.name);
+                        $('#correo').addClass('is-invalid');
+                        $('.email').text(response.responseJSON.errors.email);
+                        $('#rol').addClass('is-invalid');
+                        $('.rol').text(response.responseJSON.errors.rol);
+                        $('#password').addClass('is-invalid');
+                        $('.password').text(response.responseJSON.errors.password);
                     }
                 });
             });
             // Eliminar registro
-            $('.dt-antecedentes tbody').on('click', '.delete-record', function() {
+            $('.dt-usuarios tbody').on('click', '.delete-record', function() {
                 let dataid = $(this).data('id');
-                let baseUrl = '{{ url('configuracion/antecedentes') }}/' + dataid +
-                    '/eliminar-antecedente';
+                let baseUrl = '{{ url('configuracion/usuarios') }}/' + dataid +
+                    '/eliminar-usuario';
                 Swal.fire({
                     title: '¿Está seguro de eliminar este registro?',
                     text: "No podra recuperarlo nuevamente!",
@@ -278,11 +259,15 @@
             });
             // Limpieza de input al cerrar el modal
             $('.close').click(function() {
-                $('#nombreAntecedente').val('');
-                $('#nombreAntecedente').removeClass('is-invalid');
+                $('#nombreUsuario').removeClass('is-invalid');
+                $('#nombreUsuario').val('');
+                $('#correo').removeClass('is-invalid');
+                $('#correo').val('');
+                $('#rol').removeClass('is-invalid');
+                $('#rol').val('');
+                $('#password').removeClass('is-invalid');
+                $('#password').val('');
             });
-
-
         });
     </script>
 @endsection

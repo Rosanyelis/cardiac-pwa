@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cita;
 use Illuminate\Http\Request;
 
 class CitasController extends Controller
 {
+    public function json()
+    {
+        $results = Cita::all()->toArray();
+        $data = ['data' => $results];
+        return response()->json($data);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +20,7 @@ class CitasController extends Controller
      */
     public function index()
     {
-        //
+        return view('citas.index');
     }
 
     /**

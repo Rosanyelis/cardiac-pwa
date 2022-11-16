@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class MedicamentoController extends Controller
 {
+    public function json()
+    {
+        $results = Medicamento::all()->toArray();
+        $data = ['data' => $results];
+        return response()->json($data);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +20,7 @@ class MedicamentoController extends Controller
      */
     public function index()
     {
-        $data = Medicamento::all();
-        return view('medicamentos.index', compact('data'));
+        return view('medicamentos.index');
     }
 
     /**
@@ -31,18 +36,28 @@ class MedicamentoController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreMedicamentoRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreMedicamentoRequest $request)
+    public function store(Request $request)
     {
+        $request->validate([
+            'nombre' => ['required'],
+            'descripcion' => ['required'],
+            'indicaciones' => ['required'],
+        ],
+        [
+            'nombre.required' => 'El campo Nombre es obligatorio',
+            'descripcion.required' => 'El campo Descripción es obligatorio',
+            'indicaciones.required' => 'El campo Indicaciones es obligatorio',
+        ]);
         Medicamento::create([
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
             'indicaciones' => $request->indicaciones,
         ]);
 
-        return redirect('/configuracion/medicamentos')->with('success', 'Registro Guardado');
+        return response()->json(200);
     }
 
     /**
